@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Market Data Query Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #query-input {
+            width: 400px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        #submit-btn {
+            padding: 8px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #results {
+            margin-top: 30px;
+            padding: 10px;
+            width: 400px;
+            height: 200px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stock Market Data Query Tool</h1>
+    <input type="text" id="query-input" placeholder="Enter a query">
+    <br><br>
+    <button id="submit-btn" onclick="submitQuery()">Submit</button>
+    <div id="results"></div>
+
+    <script>
+        function submitQuery() {
+            const queryInput = document.getElementById('query-input');
+            const resultsDiv = document.getElementById('results');
+
+            // Clear previous results
+            resultsDiv.innerHTML = '';
+
+            // Get the user query
+            const query = queryInput.value.trim();
+
+            // Send query to the Python backend using fetch API
+            fetch('/query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query }),
+            })
+            .then(response => response.text())
+            .then(data => {
+                resultsDiv.innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultsDiv.innerHTML = 'An error occurred while processing the query.';
+            });
+        }
+    </script>
+</body>
+</html>
