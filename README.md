@@ -1,5 +1,4 @@
 # StockMarketLanguageBasedSearchTool
-🌐 LinkedIn Post: Introducing My Language-Based Search Tool! 📚🔎
 
 📂 Files Overview:
 🔹 'app.py': The backbone of my language-based search tool, built with Flask and LangChain. It processes queries and retrieves relevant data from 'data.txt'.
